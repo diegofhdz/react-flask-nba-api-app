@@ -1,7 +1,7 @@
 
 export const authCalls = {
     register: async (data: any = {}) => {
-        const response = await fetch(`http://127.0.0.1:5000/register`, {
+        const response = await fetch(`/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ export const authCalls = {
    return await response.json();
 },
     login: async (data: any = {}) => {
-        const response = await fetch(`http://127.0.01:5000/login`, {
+        const response = await fetch(`/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,11 +31,18 @@ export const authCalls = {
         return await response.json();
 },
     logout: async () => {
-        const response = await fetch(`http://127.0.0.1:5000/logout`, {
+        const response = await fetch(`/logout`, {
             method: 'GET',
             credentials: 'include'
     })
     return await response.json();
-}
+},
+    checkLogin: async () => {
+        const response = await fetch('/loginstatus', {
+            method:'GET',
+            credentials: 'include'
+        })
+        return await response.json();
+    }
 }
 

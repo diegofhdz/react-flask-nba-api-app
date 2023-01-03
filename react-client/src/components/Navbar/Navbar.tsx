@@ -1,8 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import { authCalls } from '../../api/auth/auth';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const [loginStatus, setLoginStatus] = useState<boolean>(true);
+
+  const logOut = () => {
+    authCalls.logout();
+    setLoginStatus(false)
+    navigate('/');
+  }
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-dark py-3 bg-dark">
       <Link className="navbar-brand ms-4" to="/">
@@ -28,12 +40,12 @@ export const Navbar = () => {
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/link2">
-              Link 2
+              Profile
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/link3">
-              Link 3
+            <Link className="nav-link" onClick={logOut} to='/'>
+              Logout
             </Link>
           </li>
         </ul>

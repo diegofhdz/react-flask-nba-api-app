@@ -14,7 +14,7 @@ auth = Blueprint('auth', __name__)
 def login():
     try:
         if request.method == 'POST':
-            user_name = request.json['user_name']
+            user_name = request.json['user_name'].lower()
             password = request.json['password']
 
             logged_user = User.query.filter_by(user_name=user_name).first()
@@ -22,12 +22,12 @@ def login():
 
             if logged_user and check_password_hash(logged_user.password_hash, password):
                 # login_user(logged_user)
-                session[str(logged_user.id)] = logged_user.id
-                return jsonify({'message': 'success'})
+                session['user_id'] = logged_user.id
+                return jsonify({'message': True})
             else:
-                return jsonify({'message': 'failure'})
+                return jsonify({'message': False})
     except:
-        return jsonify({'message': 'failure'}, 409)
+        return jsonify({'message': False}, 409)
 
 
 @auth.route('/register', methods=['POST'])
@@ -37,7 +37,7 @@ def register():
         if request.method == 'POST':
             email = request.json['email']
             password = request.json['password']
-            user_name = request.json['user_name']
+            user_name = request.json['user_name'].lower()
 
             new_user = User(email=email, user_name=user_name, password=password)
             db.session.add(new_user)
@@ -48,22 +48,23 @@ def register():
     except:
         print("Something went wrong. There may be a user with that email or username already.")
         traceback.print_exc()
-        return jsonify({'message': 'Something went wrong. There may be a user with that email or username already.'}, 409)
+        return jsonify({'message': False}, 409)
 
     if registered:
         new_user2 = User.query.filter_by(user_name=user_name).first()
         # login_user(new_user2)
+        session['user_id'] = new_user2.id
 
-    return jsonify({'message': 'success'})
+    return jsonify({'message': True})
 
 @auth.route('/logout')
 def logout():
     # logout_user()
     session.clear()
-    return jsonify({'message': 'success'})
+    return jsonify({'message': True})
 
 
-@auth.route('/user', methods=['GET'])
+@auth.route('/loginstatus', methods=['GET'])
 @login_required
 def user():
-    return jsonify({'message': f'User {session["user_id"]} is logged in!'})
+    return jsonify({'message': True})
