@@ -1,10 +1,11 @@
 from flask import Blueprint, request, redirect, url_for, flash, jsonify, session
-from flask_login import login_user, logout_user, login_required
+# from flask_login import login_user, logout_user, login_required
 from forms import LoginForm
 from models import User
 from werkzeug.security import check_password_hash
 from models import db
 import traceback
+from helpers import login_required
 
 auth = Blueprint('auth', __name__)
 
@@ -20,7 +21,8 @@ def login():
             print(logged_user.user_name)
 
             if logged_user and check_password_hash(logged_user.password_hash, password):
-                login_user(logged_user)
+                # login_user(logged_user)
+                session[str(logged_user.id)] = logged_user.id
                 return jsonify({'message': 'success'})
             else:
                 return jsonify({'message': 'failure'})
@@ -50,13 +52,14 @@ def register():
 
     if registered:
         new_user2 = User.query.filter_by(user_name=user_name).first()
-        login_user(new_user2)
+        # login_user(new_user2)
 
     return jsonify({'message': 'success'})
 
 @auth.route('/logout')
 def logout():
-    logout_user()
+    # logout_user()
+    session.clear()
     return jsonify({'message': 'success'})
 
 

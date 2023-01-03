@@ -7,11 +7,11 @@ import secrets
 import uuid
 
 
-login_manager = LoginManager()
+# login_manager = LoginManager()
 ma = Marshmallow()
 db = SQLAlchemy()
 
-@login_manager.user_loader
+# @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 

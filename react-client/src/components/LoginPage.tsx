@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { authCalls } from '../api/auth/auth';
-import { httpClient } from '../api/auth/httpClient';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from './Navbar';
 
@@ -24,7 +23,7 @@ export const LoginPage = () => {
 
     if (loginStatus === "success") {
       console.log("success");
-      navigate('/profile');
+      // navigate('/profile');
     }
   }
 
@@ -38,19 +37,19 @@ export const LoginPage = () => {
     <div>
       <Navbar />
       <div className="container mt-5">
-      <h1 className='text-center mb-3'>Login</h1>
+      <h1 className='text-center mb-3'>Login Here</h1>
       <div className="row justify-content-center">
         <div className="col-md-6">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-        <label>Username</label>
+          <label className='my-2'>Username</label>
         <input {...register('user_name', {required: true})} type="text" name='user_name' className='form-control'/>
         </div>
         <div className="form-group">
-        <label>Password</label>
+        <label className='my-2'>Password</label>
         <input {...register('password', {required: true})} type="text" name='password' className='form-control'/>
         </div>
-        <button className='btn btn-primary mt-2 btn-block center-block mx-auto' type="submit">Submit</button>
+        <button className='btn btn-primary mt-4 btn-block' type="submit">Submit</button>
       </form>
 
       <button onClick={logOut}>Logout</button>
