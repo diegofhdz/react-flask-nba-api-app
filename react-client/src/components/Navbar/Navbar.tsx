@@ -34,12 +34,12 @@ export const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ms-auto me-5">
           <li className="nav-item">
-            <Link className="nav-link" to="/link1">
+            <Link className="nav-link" to="/home">
               Home
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/link2">
+            <Link className="nav-link" to="/profile">
               Profile
             </Link>
           </li>

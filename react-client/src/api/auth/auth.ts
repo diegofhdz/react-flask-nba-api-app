@@ -43,6 +43,24 @@ export const authCalls = {
             credentials: 'include'
         })
         return await response.json();
+},
+    getUserDets: async () => {
+        const response = await fetch('/getuser', {
+            method: 'GET',
+            credentials: 'include'
+        })
+        return await response.json();
+},
+    updatePassword: async (data:any) => {
+        const response = await fetch('/updatepassword', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(data)
+        })
+        return await response.json()
     }
 }
 

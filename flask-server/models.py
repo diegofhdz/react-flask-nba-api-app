@@ -32,6 +32,9 @@ class User(db.Model, UserMixin):
         self.password_hash = self.set_password_hash(password)
         self.token = self.set_token(24)
 
+    def update_password(self, new_password):
+        self.password_hash = self.set_password_hash(new_password)
+
     def set_password_hash(self, password):
         return generate_password_hash(password)
 
@@ -42,5 +45,5 @@ class User(db.Model, UserMixin):
         return str(uuid.uuid4())
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.user_name)
 

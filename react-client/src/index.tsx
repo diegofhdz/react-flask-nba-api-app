@@ -1,6 +1,7 @@
 import React, {useContext, createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import { LoginPage } from './components/LoginPage';
+import { Profile } from './components/Profile'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NotFound } from './components';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -16,7 +17,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/profile" />
+        <Route path="/profile" element={<Profile/>} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
