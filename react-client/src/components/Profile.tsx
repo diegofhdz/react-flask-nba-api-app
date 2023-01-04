@@ -12,19 +12,18 @@ export const Profile = () => {
   const [error, setError] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
   const {register, handleSubmit} = useForm({ });
-  const [success , setSuccess] = useState(false);
 
 
   const onSubmit = (data: any , event: any) => {
     console.log(data)
-    authCalls.updatePassword(data).then((res) => setSuccess(res.password_change));
-    if (success) {
+    authCalls.updatePassword(data).then((res) => {
+    if (res.password_change) {
       event.target.reset();
+      alert("Success! Your password has been changed.");
       setTimeout(() => window.location.reload(), 1000);
     } else {
-      alert(success)
-      setSuccess(false);
-    }
+      alert(res.message)
+    }})
   };
 
   useEffect(() => {

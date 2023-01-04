@@ -48,14 +48,16 @@ def register():
     except:
         print("Something went wrong. There may be a user with that email or username already.")
         traceback.print_exc()
-        return jsonify({'message': False}, 409)
+        return jsonify({'message': False})
 
     if registered:
-        new_user2 = User.query.filter_by(user_name=user_name).first()
-        # login_user(new_user2)
-        server_session['user_id'] = new_user2.id
+        new_user = User.query.filter_by(user_name=user_name).first()
+        server_session['user_id'] = new_user.id
+        return jsonify({'message': True})
+    else:
+        return jsonify({'message': False})
 
-    return jsonify({'message': True})
+    
 
 @auth.route('/logout')
 def logout():
@@ -95,4 +97,4 @@ def change_password():
         else:
             return jsonify({'password_change': False, 'message': 'Incorrect Password'})
     except:
-        return jsonify({'password_change': False})
+        return jsonify({'password_change': False, 'message': 'Something went wrong.'})

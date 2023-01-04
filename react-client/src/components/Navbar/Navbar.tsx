@@ -11,13 +11,13 @@ export const Navbar = () => {
 
   const logOut = () => {
     authCalls.logout();
-    setLoginStatus(false)
+    setLoginStatus(false);
     navigate('/');
   }
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark py-3 bg-dark">
-      <Link className="navbar-brand ms-4" to="/">
+    <nav className="navbar navbar-expand-lg navbar-dark py-3 bg-dark" id='navbarNav'>
+      <Link className="navbar-brand ms-4" to="/home">
         Home
       </Link>
       <button

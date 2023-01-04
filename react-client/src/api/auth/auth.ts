@@ -61,6 +61,17 @@ export const authCalls = {
             body: JSON.stringify(data)
         })
         return await response.json()
-    }
+ },
+    registerUser: async (data:any) => {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(data)
+        })
+        return await response.json();
+}
 }
 
