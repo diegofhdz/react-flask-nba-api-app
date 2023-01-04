@@ -5,7 +5,9 @@ export const Home = () => {
   return (
     <>
     <Navbar />
-    <div>Home</div>
+    <div className="container">
+      <h1 className="text-center">Welcome, here are todays games</h1>
+    </div>
     </>
     
   )
