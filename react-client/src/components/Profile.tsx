@@ -25,7 +25,6 @@ export const Profile = () => {
   const onSubmitPassword = (data: any , event: any) => {
     console.log(data);
     authCalls.updatePassword(data).then((res) => {
-      console.log(res);
     if (res.password_change) {
       event.target.reset();
       alert("Success! Your password has been changed.");
@@ -36,7 +35,6 @@ export const Profile = () => {
   };
 
   const onEmailSubmit = (data: any , event: any) => {
-    console.log(data)
     authCalls.updateEmail(data).then((res) => {
     if (res.email_change) {
       event.target.reset();
@@ -48,7 +46,6 @@ export const Profile = () => {
   };
 
   const onUsernameSubmit = (data: any , event: any) => {
-    console.log(data)
     authCalls.updateUsername(data).then((res) => {
     if (res.username_change) {
       event.target.reset();

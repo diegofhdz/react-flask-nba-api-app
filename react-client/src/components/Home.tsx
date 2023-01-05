@@ -79,7 +79,6 @@ export const Home = () => {
         </tr>
       <tbody>
       {east.map((team) => {
-        console.log(team);
         return (
           <tr>
             <td>{team.ConferenceRank}</td>

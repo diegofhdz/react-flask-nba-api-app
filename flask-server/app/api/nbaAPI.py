@@ -3,17 +3,15 @@ from dotenv import load_dotenv
 import os
 from flask import Blueprint, jsonify
 import datetime
-from helpers import login_required
 
 load_dotenv()
-#work on api routes
 nba_api = Blueprint('nba_api', __name__, url_prefix='/api')
 api_key = os.getenv('API_KEY')
 west = []
 east = []
 
 standings_endpoint = "https://api.sportsdata.io/v3/nba/scores/json/Standings/2023"
-games_endpoint = "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/2023-JAN-05"
+games_endpoint = "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/"
 headers = {'Ocp-Apim-Subscription-Key': f'{api_key}', 'Content-Type': 'application/json'}
 
 def get_games():
@@ -21,8 +19,8 @@ def get_games():
     all_games = {}
     today = datetime.date.today()
     date_string = today.strftime('%Y-%b-%d').upper()
-    games_endpoint = f"https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/{date_string}"
-    resp = req.get(games_endpoint, headers=headers).json()
+    games_endpoint_url = games_endpoint + f"{date_string}"
+    resp = req.get(games_endpoint_url, headers=headers).json()
     
     for game in resp:
 
@@ -70,11 +68,9 @@ def get_standings():
     return standings_dict
 
 @nba_api.route('/standings')
-@login_required
 def standings():
     return jsonify(get_standings())
 
 @nba_api.route('/games')
-@login_required
 def games():
     return jsonify(get_games())

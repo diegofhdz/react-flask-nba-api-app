@@ -2,7 +2,6 @@ import React, { useEffect, useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { authCalls } from '../api/auth/auth';
 import { useNavigate } from 'react-router-dom';
-import { Navbar } from './Navbar';
 
 export const LoginPage = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(false);
@@ -34,9 +33,9 @@ export const LoginPage = () => {
   
   return (
     <div>
-      <Navbar />
       <div className="container mt-5">
-      <h1 className='text-center mb-3'>Login Here</h1>
+      <h1 className='text-center mb-3'>Welcome to my site!</h1>
+      <h3 className="text-center mb-3">Login Here!</h3>
       <div className="row justify-content-center">
         <div className="col-md-6">
       <form onSubmit={handleSubmit(onSubmit)} className="form-control p-3">
@@ -51,7 +50,7 @@ export const LoginPage = () => {
         <button className='btn btn-primary mt-4 btn-block' style={{width: "100px", height: "40px"}} type="submit">Submit</button>
       </form>
       <div className="d-flex flex-column">
-        <label className='mt-3 me-3' >Don't have an account? Register here</label>
+        <label className='mt-3' >Don't have an account? Register here</label>
         <a className='me-auto'  href="/register"><button className='btn btn-info mt-1 mx-auto text-light' style={{width: "100px", height: "40px"}}>Register</button></a>
       </div>
 
