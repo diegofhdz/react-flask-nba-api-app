@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 from flask import Blueprint, jsonify
 import datetime
-# from "flask-server/helpers.py" import login_required
+from helpers import login_required
 
 load_dotenv()
 #work on api routes
@@ -69,13 +69,12 @@ def get_standings():
     standings_dict['east'] = east
     return standings_dict
 
-# print(get_standings())
 @nba_api.route('/standings')
-# @login_required
+@login_required
 def standings():
     return jsonify(get_standings())
 
 @nba_api.route('/games')
-# @login_required
+@login_required
 def games():
     return jsonify(get_games())
