@@ -7,6 +7,7 @@ from models import db
 from config import Config
 from .authentication.routes import auth
 from flask_session import Session
+from .api.nbaAPI import nba_api
 
 
 app = Flask(__name__)
@@ -15,8 +16,8 @@ CORS(app, supports_credentials=True)
 
 Session(app)
 
-
 app.register_blueprint(auth)
+app.register_blueprint(nba_api)
 # login_manager.init_app(app)
 db.init_app(app)
 with app.app_context():
