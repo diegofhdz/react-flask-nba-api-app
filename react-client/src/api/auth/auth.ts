@@ -72,6 +72,38 @@ export const authCalls = {
             body: JSON.stringify(data)
         })
         return await response.json();
+},
+    updateUsername: async (data:any) => {
+        const response = await fetch('/updateusername', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(data)
+        })
+        return await response.json();
+},
+    updateEmail: async (data:any) => {
+        const response = await fetch('/updateemail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(data)
+        })
+        return await response.json();
+    },
+    deleteUser: async (data: any) => {
+        const response = await fetch('/deleteaccount', {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        return await response.json();
+    }
 }
-}
-

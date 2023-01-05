@@ -35,6 +35,22 @@ class User(db.Model, UserMixin):
     def update_password(self, new_password):
         self.password_hash = self.set_password_hash(new_password)
 
+    def update_username(self, new_username):
+        try:
+            self.user_name = new_username
+            db.session.commit()
+            return True
+        except:
+            return False
+
+    def update_email(self, new_email):
+        try:
+            self.email = new_email
+            db.session.commit()
+            return True
+        except:
+            return False
+
     def set_password_hash(self, password):
         return generate_password_hash(password)
 

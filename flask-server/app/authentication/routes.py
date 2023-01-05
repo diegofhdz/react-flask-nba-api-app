@@ -9,7 +9,6 @@ from helpers import login_required
 
 auth = Blueprint('auth', __name__)
 
-
 @auth.route('/login', methods=['POST'])
 def login():
     try:
@@ -21,7 +20,6 @@ def login():
             print(logged_user.user_name)
 
             if logged_user and check_password_hash(logged_user.password_hash, password):
-                # login_user(logged_user)
                 server_session['user_id'] = logged_user.id
                 return jsonify({'message': True})
             else:
@@ -61,7 +59,6 @@ def register():
 
 @auth.route('/logout')
 def logout():
-    # logout_user()
     server_session.clear()
     return jsonify({'message': True})
 
@@ -98,3 +95,76 @@ def change_password():
             return jsonify({'password_change': False, 'message': 'Incorrect Password'})
     except:
         return jsonify({'password_change': False, 'message': 'Something went wrong.'})
+
+@auth.route('/updateemail', methods=['POST'])
+@login_required
+def change_email():
+    try:
+        curr_id = server_session.get('user_id')
+        curr_user = User.query.filter_by(id=curr_id).first()
+        curr_pass = request.json['password']
+        new_email = request.json['new_email']
+        if (check_password_hash(curr_user.password_hash, curr_pass)):
+            update_email = curr_user.update_email(new_email)
+            if update_email:
+                return jsonify({'email_change': True})
+            else:
+                return jsonify({'email_change': False, 'message': 'Email already in use.'})
+        else:
+            return jsonify({'email_change': False, 'message': 'Incorrect Password'})
+    except:
+        return jsonify({'email_change': False, 'message': 'Something went wrong.'})
+
+
+@auth.route('/updateusername', methods=['POST'])
+@login_required
+def change_username():
+    try:
+        curr_id = server_session.get('user_id')
+        curr_user = User.query.filter_by(id=curr_id).first()
+        curr_pass = request.json['password']
+        new_username = request.json['new_user_name']
+        if (check_password_hash(curr_user.password_hash, curr_pass)):
+            update_username = curr_user.update_username(new_username)
+            if update_username:
+                return jsonify({'username_change': True})
+            else:
+                return jsonify({'username_change': False, 'message': 'Username already in use.'})
+        else:
+            return jsonify({'username_change': False, 'message': 'Incorrect Password'})
+    except:
+        return jsonify({'username_change': False, 'message': 'Something went wrong.'})
+    
+
+@auth.route('/deleteaccount', methods=['POST', 'DELETE'])
+@login_required
+def delete_account():
+    try:
+        curr_id = server_session.get('user_id')
+        curr_user = User.query.filter_by(id=curr_id).first()
+        curr_pass = request.json['password']
+        if (check_password_hash(curr_user.password_hash, curr_pass)):
+            db.session.delete(curr_user)
+            db.session.commit()
+            server_session.clear()
+            return jsonify({'account_delete': True})
+        else:
+            return jsonify({'account_delete': False, 'message': 'Incorrect Password'})
+    except:
+        return jsonify({'account_delete': False, 'message': 'Something went wrong.'})
+
+
+@auth.route('/verifypassword', methods=['POST'])
+@login_required
+def verify_password():
+    try:
+        curr_id = server_session.get('user_id')
+        curr_user = User.query.filter_by(id=curr_id).first()
+        curr_pass = request.json['password']
+        if (check_password_hash(curr_user.password_hash, curr_pass)):
+            print("made it here")
+            return jsonify({'password_verify': True})
+        else:
+            return jsonify({'password_verify': False, 'message': 'Incorrect Password'})
+    except:
+        return jsonify({'password_verify': False, 'message': 'Something went wrong.'})
